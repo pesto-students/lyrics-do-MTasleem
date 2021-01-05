@@ -15,8 +15,8 @@
         <section class="wrap-container">
           <section class="title text-center">LyricsDo</section>
           <section class="search-lyrics text-center">
-            <input type="text" id="getName" placeholder="Enter artist name or song name..." />
-            <button class="btn-lyrics-search" onclick="searchLyrics()">Search</button>
+           <input type='text' id="myInput" placeholder="Enter artist name or song name..." value="stairway">
+            <input class="btn-lyrics-search" type="submit" id="searchLyrics" value="Search">
           </section>
         </section>
       </section>
@@ -24,8 +24,8 @@
     <section class="results text-center">
       <section class="results-list" id="results"></section>
       <section class="prev-next">
-        <button class="prev" onclick="prev()">Previous</button>
-        <button class="next" onclick="next()">Next</button>
+        <button class="prev" id="prev-btn">Previous</button>
+        <button class="next" id="next-btn">Next</button>
       </section>
     </section>
   </section>

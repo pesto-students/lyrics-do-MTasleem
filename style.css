@@ -9,12 +9,12 @@ section.main-container {
 } */
 
 section.results-list {
-    width     : 38%;
+    width     : 57%;
     margin    : 0 auto;
     margin-top: 50px;
 }
 
-section.show-lyrics button {
+section.show-lyrics .btn-lyrics-search {
     padding      : 6px;
     background   : #2196F3;
     color        : white;
@@ -32,10 +32,40 @@ section.show-block {
     box-shadow : 0px 2px 2px 2px #e7e7e7;
 }
 
+section.wrap-img img {
+    float: left;
+}
+
+audio {
+    width: 100%;
+}
+
+section.audio-controls {
+    margin-top: 20px;
+}
+
+section.wrap-img section:not(:last-child) {
+    margin-left: 20%;
+    margin-top : 10px;
+}
+
 section.main-title {
-    display        : flex;
-    justify-content: space-between;
-    cursor         : pointer;
+    display              : grid;
+    text-align           : left;
+    cursor               : pointer;
+    align-items          : center;
+    grid-template-columns: auto 25%;
+}
+
+section.wrap-img {
+    background-color: #ccc;
+    padding         : 10px;
+    border-radius   : 5px;
+    box-shadow      : 0px 2px 2px 1px darkgrey;
+}
+
+section.show-lyrics {
+    text-align: right;
 }
 
 section.artist-list {
@@ -70,7 +100,7 @@ section.container {
 }
 
 section.wrap-container {
-    width: 40%;
+    width: 57%;
 }
 
 .search-lyrics .btn-lyrics-search {
@@ -81,7 +111,7 @@ section.wrap-container {
     border       : 1px solid grey;
     cursor       : pointer;
     position     : absolute;
-    right        : 4%;
+    right        : 4px;
     top          : 43%;
     border-radius: 5px;
 
@@ -118,38 +148,127 @@ section.title {
 }
 
 .search-lyrics input[type=text] {
-    padding      : 10px 80px 10px 10px;
+    /* padding      : 10px 80px 10px 10px; */
+    padding      : 10px;
     font-size    : 17px;
     border       : 1px solid transparent;
     background   : #fff;
     margin-top   : 25px !important;
-    width        : 77%;
+    width        : calc(100% - 20px);
     margin       : 0 auto;
     border-radius: 3px;
 }
 
-/* accordion */
-.accordion {
-    background-color: #eee;
-    color           : #444;
-    cursor          : pointer;
-    padding         : 18px;
+.lds-spinner {
+    position        : fixed;
     width           : 100%;
-    border          : none;
-    text-align      : left;
-    outline         : none;
-    font-size       : 15px;
-    transition      : 0.4s;
+    height          : 100vh;
+    background-color: #6e5d5d9c;
+    display         : flex;
+    align-items     : center;
+    justify-content : center;
+    top             : 0;
+    left            : 0;
 }
 
-/* .active,
-.accordion:hover {
-    background-color: #ccc;
-} */
+.lds-spinner div {
+    transform-origin: 40px 40px;
+    animation       : lds-spinner 1.2s linear infinite;
+}
 
-.panel {
-    padding         : 0 18px;
-    display         : none;
-    background-color: white;
-    overflow        : hidden;
+.lds-spinner div:after {
+    content      : " ";
+    display      : block;
+    position     : absolute;
+    top          : 3px;
+    left         : 37px;
+    width        : 6px;
+    height       : 18px;
+    border-radius: 20%;
+    background   : #fff;
+}
+
+.lds-spinner div:nth-child(1) {
+    transform      : rotate(0deg);
+    animation-delay: -1.1s;
+}
+
+.lds-spinner div:nth-child(2) {
+    transform      : rotate(30deg);
+    animation-delay: -1s;
+}
+
+.lds-spinner div:nth-child(3) {
+    transform      : rotate(60deg);
+    animation-delay: -0.9s;
+}
+
+.lds-spinner div:nth-child(4) {
+    transform      : rotate(90deg);
+    animation-delay: -0.8s;
+}
+
+.lds-spinner div:nth-child(5) {
+    transform      : rotate(120deg);
+    animation-delay: -0.7s;
+}
+
+.lds-spinner div:nth-child(6) {
+    transform      : rotate(150deg);
+    animation-delay: -0.6s;
+}
+
+.lds-spinner div:nth-child(7) {
+    transform      : rotate(180deg);
+    animation-delay: -0.5s;
+}
+
+.lds-spinner div:nth-child(8) {
+    transform      : rotate(210deg);
+    animation-delay: -0.4s;
+}
+
+.lds-spinner div:nth-child(9) {
+    transform      : rotate(240deg);
+    animation-delay: -0.3s;
+}
+
+.lds-spinner div:nth-child(10) {
+    transform      : rotate(270deg);
+    animation-delay: -0.2s;
+}
+
+.lds-spinner div:nth-child(11) {
+    transform      : rotate(300deg);
+    animation-delay: -0.1s;
+}
+
+.lds-spinner div:nth-child(12) {
+    transform      : rotate(330deg);
+    animation-delay: 0s;
+}
+
+@keyframes lds-spinner {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+
+@media (max-width:767px) and (min-width:320px) {
+    section.results-list {
+        width: 100% !important;
+    }
+
+    section.wrap-container {
+        width: calc(100% - 20px) !important;
+    }
+
+    section.show-lyrics .btn-lyrics-search {
+        font-size: 10px;
+    }
 }
