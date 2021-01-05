@@ -47,7 +47,7 @@ async function showLyrics(param) {
         artistList.appendChild(createEle);
     }
 }
-function prev(param) {
+async function prev(param) {
     count--;
 
     count++;
