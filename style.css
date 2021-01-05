@@ -1,0 +1,155 @@
+section.main-container {
+    /* display: flex;
+    height : 100vh; */
+}
+
+/* section.show-block {
+    width : 50%;
+    margin: 0 auto;
+} */
+
+section.results-list {
+    width     : 38%;
+    margin    : 0 auto;
+    margin-top: 50px;
+}
+
+section.show-lyrics button {
+    padding      : 6px;
+    background   : #2196F3;
+    color        : white;
+    font-size    : 17px;
+    border       : 1px solid grey;
+    cursor       : pointer;
+    border-radius: 5px;
+    z-index      : 9;
+}
+
+section.show-block {
+    align-items: center;
+    padding    : 10px 5px;
+    margin     : 5px 0;
+    box-shadow : 0px 2px 2px 2px #e7e7e7;
+}
+
+section.main-title {
+    display        : flex;
+    justify-content: space-between;
+    cursor         : pointer;
+}
+
+section.artist-list {
+    border-top : 1px solid #ccc;
+    padding-top: 5px;
+    margin-top : 10px;
+}
+
+section.background-sec {
+    width              : 100%;
+    height             : 50vh;
+    background-image   : url('./assets/hero-background.jpg');
+    background-position: left;
+    background-size    : 100%;
+    background-repeat  : no-repeat;
+}
+
+section.container {
+    display        : flex;
+    align-items    : center;
+    justify-content: center;
+    height         : 50vh;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.search-lyrics {
+    position: relative;
+
+}
+
+section.wrap-container {
+    width: 40%;
+}
+
+.search-lyrics .btn-lyrics-search {
+    padding      : 6px;
+    background   : #2196F3;
+    color        : white;
+    font-size    : 17px;
+    border       : 1px solid grey;
+    cursor       : pointer;
+    position     : absolute;
+    right        : 4%;
+    top          : 43%;
+    border-radius: 5px;
+
+}
+
+.prev,
+.next {
+
+    padding      : 6px;
+    background   : #2196F3;
+    color        : white;
+    font-size    : 17px;
+    border       : 1px solid grey;
+    cursor       : pointer;
+    border-radius: 5px;
+    width        : 100px;
+}
+
+section.prev-next {
+    margin-top: 50px;
+}
+
+button.prev[disabled],
+button.next[disabled] {
+    background-color: #ccc;
+    cursor          : not-allowed;
+    color           : #000;
+}
+
+section.title {
+    color      : #fff;
+    font-size  : 2rem;
+    font-weight: 700;
+}
+
+.search-lyrics input[type=text] {
+    padding      : 10px 80px 10px 10px;
+    font-size    : 17px;
+    border       : 1px solid transparent;
+    background   : #fff;
+    margin-top   : 25px !important;
+    width        : 77%;
+    margin       : 0 auto;
+    border-radius: 3px;
+}
+
+/* accordion */
+.accordion {
+    background-color: #eee;
+    color           : #444;
+    cursor          : pointer;
+    padding         : 18px;
+    width           : 100%;
+    border          : none;
+    text-align      : left;
+    outline         : none;
+    font-size       : 15px;
+    transition      : 0.4s;
+}
+
+/* .active,
+.accordion:hover {
+    background-color: #ccc;
+} */
+
+.panel {
+    padding         : 0 18px;
+    display         : none;
+    background-color: white;
+    overflow        : hidden;
+}
