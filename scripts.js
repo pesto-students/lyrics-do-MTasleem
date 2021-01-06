@@ -11,8 +11,6 @@ results.innerHTML = 'No Result';
 count = 0;
 lyricsResult = null;
 
-const mainContainer = document.getElementsByClassName('main-container');
-
 var input = document.getElementById("myInput");
 input.addEventListener("keyup", function (event) {
     if (event.keyCode === 13) {
@@ -55,6 +53,7 @@ async function searchLyrics(e) {
         results.innerHTML = 'Enter artist or song name...';
         document.getElementsByClassName('prev')[0].setAttribute("disabled", true);
         document.getElementsByClassName('next')[0].setAttribute("disabled", true);
+        hideLoader();
     }
 }
 
@@ -65,8 +64,11 @@ function bindHTML(resultSetVal, count) {
         output += '<section class="show-block"><section class="main-title" id="maintitle"><section class="wrap-main-title"><section class="wrap-img"><img src="' + resultSet[index].album.cover_small.replace('https', 'http') + '" loading="lazy"/><section class="name"><b>' + resultSet[index].artist.name + '</b></section><section class="title1">' + resultSet[index].title + '</section><section class="audio-controls"><audio controls="controls" src="' + resultSet[index].preview.replace('https', 'http') + '">Your browser does not support the HTML5 audio element.</audio></section></section></section><section class="show-lyrics"><button class="btn-lyrics-search" onclick="showLyrics(' + index + ')">Show Lyrics</button></section></section><section class="wrap-artist-list"></section></section>';
     }
 
-    if (resultSet.length < 4) {
+    if (count == 4) {
         document.getElementsByClassName('next')[0].setAttribute("disabled", true);
+    }
+    if (count == 1) {
+        document.getElementsByClassName('prev')[0].setAttribute("disabled", true);
     }
 
     results.innerHTML = output;
@@ -94,8 +96,8 @@ function prev(param) {
     if (count) {
         showLoader()
         document.getElementsByClassName('prev')[0].removeAttribute("disabled");
+        document.getElementsByClassName('next')[0].removeAttribute('disabled');
         bindHTML(resultSet, count);
-
     } else {
         document.getElementsByClassName('prev')[0].setAttribute("disabled", true);
         document.getElementsByClassName('next')[0].removeAttribute('disabled');
@@ -108,7 +110,6 @@ function next(param) {
         showLoader()
         document.getElementsByClassName('prev')[0].removeAttribute("disabled");
         bindHTML(resultSet, count);
-
     } else {
         document.getElementsByClassName('prev')[0].setAttribute("disabled", true);
     }
