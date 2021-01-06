@@ -62,7 +62,7 @@ function bindHTML(resultSetVal, count) {
     var output = "";
     let resultSet = pagination(resultSetVal, count, 4)
     for (let index = 0; index < resultSet.length; index++) {
-        output += '<section class="show-block"><section class="main-title" id="maintitle"><section class="wrap-main-title"><section class="wrap-img"><img src="' + resultSet[index].album.cover_small + '" loading="lazy"/><section class="name"><b>' + resultSet[index].artist.name + '</b></section><section class="title1">' + resultSet[index].title + '</section><section class="audio-controls"><audio controls="controls" src="' + resultSet[index].preview + '">Your browser does not support the HTML5 audio element.</audio></section></section></section><section class="show-lyrics"><button class="btn-lyrics-search" onclick="showLyrics(' + index + ')">Show Lyrics</button></section></section><section class="wrap-artist-list"></section></section>';
+        output += '<section class="show-block"><section class="main-title" id="maintitle"><section class="wrap-main-title"><section class="wrap-img"><img src="' + resultSet[index].album.cover_small.replace('https', 'http') + '" loading="lazy"/><section class="name"><b>' + resultSet[index].artist.name + '</b></section><section class="title1">' + resultSet[index].title + '</section><section class="audio-controls"><audio controls="controls" src="' + resultSet[index].preview.replace('https', 'http') + '">Your browser does not support the HTML5 audio element.</audio></section></section></section><section class="show-lyrics"><button class="btn-lyrics-search" onclick="showLyrics(' + index + ')">Show Lyrics</button></section></section><section class="wrap-artist-list"></section></section>';
     }
 
     if (resultSet.length < 4) {
