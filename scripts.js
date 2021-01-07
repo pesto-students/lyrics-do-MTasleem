@@ -9,7 +9,7 @@ document.getElementById("prev-btn").addEventListener("click", prev);
 
 results.innerHTML = 'No Result';
 count = 0;
-lyricsResult = null;
+// lyricsResult = null;
 
 var input = document.getElementById("myInput");
 input.addEventListener("keyup", function (event) {
@@ -40,7 +40,7 @@ async function searchLyrics(e) {
     if (searchedParam) {
         const res = await fetch(`${apiURL}/suggest/${searchedParam}`);
         const data = await res.json();
-        lyricsResult = data;
+        // lyricsResult = data;
         resultSet = data['data'];
         if (resultSet && resultSet.length) {
             document.getElementsByClassName('prev')[0].removeAttribute('disabled');
@@ -85,8 +85,8 @@ async function showLyrics(param) {
         artistList.innerText = ''
         const res = await fetch(`${apiURL}/v1/${getName[0].artist.name}/${getName[0].title}`);
         const data = await res.json();
-        // createEle.innerHTML = data.lyrics || 'No data found';
-        createEle.textContent += data.lyrics || 'No data found';
+        createEle.innerHTML = data.lyrics ? `<pre>${data.lyrics}</pre>` : 'No data found';
+        // createEle.textContent += data.lyrics || 'No data found';
         artistList.appendChild(createEle);
     }
 }
