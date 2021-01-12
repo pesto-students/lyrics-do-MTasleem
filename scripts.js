@@ -1,5 +1,6 @@
+
 var resultSet = [];
-const apiURL = 'https://api.lyrics.ovh';
+const apiURL = 'https://api.lyrics.ovh'
 document.getElementsByClassName('prev')[0].setAttribute("disabled", true);
 document.getElementsByClassName('next')[0].setAttribute("disabled", true);
 
@@ -34,21 +35,40 @@ function hideLoader() {
     document.body.removeChild(ldsSpinner);
 }
 
+// call Common API
+const asynchronousAPICall = async (url) => {
+    // return fetch(url).then(response => {
+    //     return response
+    // })
+    const response = await fetch(url)
+    return response
+}
+
 async function searchLyrics(e) {
     showLoader()
     let searchedParam = myInput.value || null;
     if (searchedParam) {
-        const res = await fetch(`${apiURL}/suggest/${searchedParam}`);
-        const data = await res.json();
+        let url = `${apiURL}/suggest/${searchedParam}`;
+        let data = await asynchronousAPICall(url)
+            .then(item => {
+                console.log(item)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+
+        // console.log(data)
+        //     const res = await fetch(`${apiURL}/suggest/${searchedParam}`);
+        //     const data = await res.json();
         // lyricsResult = data;
         resultSet = data['data'];
         if (resultSet && resultSet.length) {
             document.getElementsByClassName('prev')[0].removeAttribute('disabled');
             document.getElementsByClassName('next')[0].removeAttribute('disabled');
             document.getElementsByClassName('prev')[0].setAttribute("disabled", true)
+            count = 1;
+            bindHTML(resultSet, count);
         }
-        count = 1;
-        bindHTML(resultSet, count);
     } else {
         results.innerHTML = 'Enter artist or song name...';
         document.getElementsByClassName('prev')[0].setAttribute("disabled", true);
@@ -128,64 +148,17 @@ function pagination(array, index, size) {
     }))]
 }
 
-// async function prev(param) {
-//     count--;
+const userSearchAction = async (searchedParam) => {
+    const response = await fetch(`${apiURL}/suggest/${searchedParam}`);
+    const res = await response.json(); //extract JSON from the http response
+    console.log(res)
+    return res;
+}
 
-//     count++;
-//     let prevPaginator = prevPaginator || lyricsResult.prev;
-//     if (count && prevPaginator) {
-//         document.getElementsByClassName('prev')[0].setAttribute(!count ? "disabled" : '', true);
-
-//         // https://cors-anywhere.herokuapp.com/http://api.deezer.com/search?limit=15&q=stairway&index=15
-//         let headers = new Headers();
-
-//         headers.append('Content-Type', 'application/json');
-//         headers.append('Accept', 'application/json');
-//         headers.append('Access-Control-Allow-Origin', '*');
-//         headers.append('Access-Control-Allow-Credentials', 'true');
-//         headers.append('GET', 'POST', 'OPTIONS');
-
-//         await fetch(`https://cors-anywhere.herokuapp.com/${prevPaginator}`, {
-//             method: 'GET',
-//             headers: headers
-//         })
-//             .then(response => response.text())
-//             .then(resp => {
-//                 console.log(resp);
-//                 bindHTML(resp['data'])
-//                 prevPaginator = resp['prev'];
-//             });
-//     } else {
-//         document.getElementsByClassName('prev')[0].setAttribute("disabled", true);
-//     }
-// }
-
-
-// async function next(param) {
-//     count++;
-//     let nextPaginator = nextPaginator || lyricsResult.next;
-//     if (count) {
-//         document.getElementsByClassName('prev')[0].removeAttribute("disabled");
-//         // https://cors-anywhere.herokuapp.com/http://api.deezer.com/search?limit=15&q=stairway&index=15
-//         let headers = new Headers();
-
-//         headers.append('Content-Type', 'application/json');
-//         headers.append('Accept', 'application/json');
-//         headers.append('Access-Control-Allow-Origin', '*');
-//         headers.append('Access-Control-Allow-Credentials', 'true');
-//         headers.append('GET', 'POST', 'OPTIONS');
-
-//         await fetch(`https://cors-anywhere.herokuapp.com/${nextPaginator}`, {
-//             method: 'GET',
-//             headers: headers
-//         })
-//             .then(response => response.text())
-//             .then(resp => {
-//                 console.log(resp);
-//                 bindHTML(resp['data'])
-//                 nextPaginator = resp['next'];
-//             });
-//     } else {
-//         document.getElementsByClassName('prev')[0].setAttribute("disabled", true);
-//     }
-// }
+const userShowAction = () => {
+    var getName = resultSet.filter((item, index) => index == param)
+    if (getName && getName.length) {
+        const res = fetch(`${apiURL}/v1/${getName[0].artist.name}/${getName[0].title}`);
+        const data = res.json();
+    }
+}
