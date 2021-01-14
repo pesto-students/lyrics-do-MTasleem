@@ -26,10 +26,16 @@ section.show-lyrics .btn-lyrics-search {
 }
 
 section.show-block {
-    align-items: center;
-    padding    : 10px 5px;
-    margin     : 5px 0;
-    box-shadow : 0px 2px 2px 2px #e7e7e7;
+    align-items     : center;
+    padding         : 10px 5px;
+    margin          : 5px 0;
+    box-shadow      : 0px 2px 2px 2px #e7e7e7;
+    transition      : 0.5s all;
+    background-color: #fff;
+}
+
+section.show-block:hover {
+    transform: scale(1.1);
 }
 
 section.wrap-img img {

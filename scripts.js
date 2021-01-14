@@ -37,11 +37,9 @@ function hideLoader() {
 
 // call Common API
 const asynchronousAPICall = async (url) => {
-    // return fetch(url).then(response => {
-    //     return response
-    // })
-    const response = await fetch(url)
-    return response
+    const response = await fetch(url);
+    const jsonData = await response.json();
+    return jsonData;
 }
 
 async function searchLyrics(e) {
@@ -49,26 +47,20 @@ async function searchLyrics(e) {
     let searchedParam = myInput.value || null;
     if (searchedParam) {
         let url = `${apiURL}/suggest/${searchedParam}`;
-        let data = await asynchronousAPICall(url)
+        await asynchronousAPICall(url)
             .then(item => {
-                console.log(item)
+                resultSet = item['data'];
+                if (resultSet && resultSet.length) {
+                    document.getElementsByClassName('prev')[0].removeAttribute('disabled');
+                    document.getElementsByClassName('next')[0].removeAttribute('disabled');
+                    document.getElementsByClassName('prev')[0].setAttribute("disabled", true)
+                    count = 1;
+                    bindHTML(resultSet, count);
+                }
             })
             .catch(err => {
                 console.log(err)
             })
-
-        // console.log(data)
-        //     const res = await fetch(`${apiURL}/suggest/${searchedParam}`);
-        //     const data = await res.json();
-        // lyricsResult = data;
-        resultSet = data['data'];
-        if (resultSet && resultSet.length) {
-            document.getElementsByClassName('prev')[0].removeAttribute('disabled');
-            document.getElementsByClassName('next')[0].removeAttribute('disabled');
-            document.getElementsByClassName('prev')[0].setAttribute("disabled", true)
-            count = 1;
-            bindHTML(resultSet, count);
-        }
     } else {
         results.innerHTML = 'Enter artist or song name...';
         document.getElementsByClassName('prev')[0].setAttribute("disabled", true);
@@ -99,15 +91,22 @@ function bindHTML(resultSetVal, count) {
 async function showLyrics(param) {
     var getName = resultSet.filter((item, index) => index == param)
     if (getName && getName.length) {
+        showLoader();
         let createEle = document.createElement('section');
         createEle.classList.add("artist-list");
         let artistList = document.getElementsByClassName('wrap-artist-list')[param];
-        artistList.innerText = ''
-        const res = await fetch(`${apiURL}/v1/${getName[0].artist.name}/${getName[0].title}`);
-        const data = await res.json();
-        createEle.innerHTML = data.lyrics ? `<pre>${data.lyrics}</pre>` : 'No data found';
-        // createEle.textContent += data.lyrics || 'No data found';
-        artistList.appendChild(createEle);
+        artistList.innerText = '';
+        let url = `${apiURL}/v1/${getName[0].artist.name}/${getName[0].title}`;
+        await asynchronousAPICall(url)
+            .then(item => {
+                createEle.innerHTML = item.lyrics ? `<pre>${item.lyrics}</pre>` : 'No data found';
+                artistList.appendChild(createEle);
+                hideLoader();
+            })
+            .catch(err => {
+                console.log(err);
+                hideLoader();
+            })
     }
 }
 
@@ -146,19 +145,4 @@ function pagination(array, index, size) {
     return [...(array.filter((value, n) => {
         return (n >= (index * size)) && (n < ((index + 1) * size))
     }))]
-}
-
-const userSearchAction = async (searchedParam) => {
-    const response = await fetch(`${apiURL}/suggest/${searchedParam}`);
-    const res = await response.json(); //extract JSON from the http response
-    console.log(res)
-    return res;
-}
-
-const userShowAction = () => {
-    var getName = resultSet.filter((item, index) => index == param)
-    if (getName && getName.length) {
-        const res = fetch(`${apiURL}/v1/${getName[0].artist.name}/${getName[0].title}`);
-        const data = res.json();
-    }
 }
